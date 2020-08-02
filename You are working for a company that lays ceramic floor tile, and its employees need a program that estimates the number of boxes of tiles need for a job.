@@ -1,0 +1,63 @@
+/* Program main Point which design for   ** You are working for a company that lays ceramic floor tile, and its employees need a program that estimates the number of boxes
+of tiles need for a job.** */
+
+#include <stdio.h> // Header file for standard input/out functions
+#include <math.h> // for metimetical calculation we use header file name as math.h
+
+float TilesinRoom(int tilesSize, int roomWidth, int roomLength) /// Declearing Function for calculating required tiles
+{
+   return (roomWidth * roomLength) * 1.0 / (tilesSize*tilesSize) * 1.0;
+}
+
+int main() // Body of main
+{
+    int roomNumber;             //  Declearing Veriables
+    int tilesSize;
+    int roomWidthFeet, roomWidthInches;
+    int roomLengthFeet, roomLengthInches;
+    int totalTiles = 0;
+    int room = 1;
+
+    printf("Enter the number of rooms in the job: "); // printing mesege according to assignmnet statment.
+    scanf("%d", &roomNumber);
+
+    printf("Enter the size of each tiles in inches: "); //// printing mesege according to assignmnet statment.
+    scanf("%d", &tilesSize);
+
+    while(roomNumber--) ///true until roomNumber is 0
+    {
+        printf("Enter room %d width (feet and inches separated by space):", room); //// printing mesege according to assignmnet statment.
+        scanf("%d %d", &roomWidthFeet, &roomWidthInches);
+
+        printf("\nEnter room %d length (feet and inches separated by space):", room); //// printing mesege according to assignmnet statment.
+        scanf("%d %d", &roomLengthFeet, &roomLengthInches);
+/*A job is estimated by taking the dimensions of each room in feet and inches, and converting those dimensions into a multiple of
+the tile size (rounding up any partial multiple) before multiplying to get the number of tiles for the room. So we are going to code for that calculation*/
+
+        int roomWidth = ( roomWidthFeet * 12 ) + roomWidthInches; ///Converting feet to inches
+        int roomLength = ( roomLengthFeet * 12 ) + roomLengthInches;
+        float requiredTiles = TilesinRoom(tilesSize, roomWidth, roomLength);
+        int required_tiles = requiredTiles;
+
+        if( (requiredTiles*10.0) > (required_tiles*10) ) { /// ceiling the tiles number
+            ++required_tiles;
+        }
+
+
+        totalTiles +=  required_tiles;
+
+        printf("\nRoom %d requires %d tiles.\n", room, required_tiles);
+
+        room++;
+    }
+
+    printf("\nThe %d rooms in the job will require %d tiles.\n", --room, totalTiles);
+    printf("\nThe number of boxes of tiles needed is %d.", (int)ceil(totalTiles / 20.0));
+/*After the dimensions for each room have been input then calculate and output the number of tiles needed for each room, the total
+number of tiles needed for all rooms, the number of boxes of tiles needed, and how many extra tiles will be left over. */
+
+    int extraTiles = ( ceil(totalTiles / 20.0) * 20 ) - totalTiles;
+    printf("\nThere will be %d extra tiles left over", extraTiles);
+
+    return 0;
+}
